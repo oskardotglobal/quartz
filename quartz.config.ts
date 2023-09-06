@@ -3,14 +3,12 @@ import * as Plugin from "./quartz/plugins"
 
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🪴 Quartz 4.0",
-    enableSPA: true,
-    enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
-    baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    pageTitle: "🪴 Oskar's Digital Garden",
+    enableSPA: false,
+    enablePopovers: false,
+    analytics: null,
+    baseUrl: "oskar.global",
+    ignorePatterns: ["_userscripts", "_templates", "Personal", ".obsidian", "**/*excalidraw*"],
     defaultDateType: "created",
     theme: {
       typography: {
@@ -56,7 +54,10 @@ const config: QuartzConfig = {
       Plugin.Latex({ renderEngine: "katex" }),
       Plugin.Description(),
     ],
-    filters: [Plugin.RemoveDrafts()],
+    filters: [
+      Plugin.RemoveDrafts(),
+      Plugin.ExplicitPublish(),
+    ],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources({ fontOrigin: "googleFonts" }),
