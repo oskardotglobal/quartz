@@ -42,18 +42,31 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     linkDistance,
     fontSize,
     opacityScale,
+    hideTags,
   } = JSON.parse(graph.dataset["cfg"]!)
 
   const data = await fetchData
 
   const links: LinkData[] = []
+  const tags: SimpleSlug[] = []
+  
   for (const [src, details] of Object.entries<ContentDetails>(data)) {
     const source = simplifySlug(src as FullSlug)
     const outgoing = details.links ?? []
+    const local_tags = details.tags
+        .filter((tag) => !hideTags.includes(tag))
+        .map((tag) => simplifySlug("tags/" + tag as FullSlug))
+
+    tags.push(...local_tags.filter((tag) => !tags.includes(tag)))
+
     for (const dest of outgoing) {
       if (dest in data) {
         links.push({ source, target: dest })
       }
+    }
+    
+    for (const tag of local_tags) {
+      links.push({ source, target: tag })
     }
   }
 
@@ -75,14 +88,18 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     }
   } else {
     Object.keys(data).forEach((id) => neighbourhood.add(simplifySlug(id as FullSlug)))
+    tags.forEach((tag) => neighbourhood.add(tag))  
   }
 
   const graphData: { nodes: NodeData[]; links: LinkData[] } = {
-    nodes: [...neighbourhood].map((url) => ({
-      id: url,
-      text: data[url]?.title ?? url,
-      tags: data[url]?.tags ?? [],
-    })),
+    nodes: [...neighbourhood].map((url) => {
+      const text = url.startsWith("tags/") ? "#" + url.substring(5) : data[url]?.title ?? url
+      return {
+        id: url,
+        text: text,
+        tags: data[url]?.tags ?? [],
+      }
+    }),
     links: links.filter((l) => neighbourhood.has(l.source) && neighbourhood.has(l.target)),
   }
 
@@ -126,7 +143,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     const isCurrent = d.id === slug
     if (isCurrent) {
       return "var(--secondary)"
-    } else if (visited.has(d.id)) {
+    } else if (d.id.startsWith("tags/")) {
       return "var(--tertiary)"
     } else {
       return "var(--gray)"
@@ -230,11 +247,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     .attr("dx", 0)
     .attr("dy", (d) => -nodeRadius(d) + "px")
     .attr("text-anchor", "middle")
-    .text(
-      (d) =>
-        data[d.id]?.title ||
-        (d.id.charAt(0).toUpperCase() + d.id.slice(1, d.id.length - 1)).replace("-", " "),
-    )
+    .text((d) => d.text)
     .style("opacity", (opacityScale - 1) / 3.75)
     .style("pointer-events", "none")
     .style("font-size", fontSize + "em")
