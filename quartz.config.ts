@@ -8,7 +8,16 @@ const config: QuartzConfig = {
     enablePopovers: false,
     analytics: null,
     baseUrl: "oskar.global",
-    ignorePatterns: ["_userscripts", "_templates", "Personal", ".obsidian", "**/*excalidraw*"],
+    ignorePatterns: [
+      ".obsidian", 
+      "_userscripts", 
+      "_templates", 
+      "Personal", 
+      "Projekte",
+      "Journal",
+      "Firma",
+      "**/*excalidraw*"
+    ],
     defaultDateType: "created",
     theme: {
       typography: {
@@ -53,6 +62,7 @@ const config: QuartzConfig = {
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Latex({ renderEngine: "katex" }),
       Plugin.Description(),
+      Plugin.LineBreaks(),
     ],
     filters: [
       Plugin.RemoveDrafts(),
