@@ -48,8 +48,12 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
   const data = await fetchData
 
   const links: LinkData[] = []
+<<<<<<< HEAD
   const tags: SimpleSlug[] = []
 
+=======
+  const validLinks = new Set(Object.keys(data).map((slug) => simplifySlug(slug as FullSlug)))
+>>>>>>> upstream/v4
   for (const [src, details] of Object.entries<ContentDetails>(data)) {
     const source = simplifySlug(src as FullSlug)
     const outgoing = details.links ?? []
@@ -60,7 +64,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     tags.push(...local_tags.filter((tag) => !tags.includes(tag)))
 
     for (const dest of outgoing) {
-      if (dest in data) {
+      if (validLinks.has(dest)) {
         links.push({ source, target: dest })
       }
     }
