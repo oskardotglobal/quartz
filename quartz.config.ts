@@ -9,14 +9,14 @@ const config: QuartzConfig = {
     analytics: null,
     baseUrl: "oskar.global",
     ignorePatterns: [
-      ".obsidian", 
-      "_userscripts", 
-      "_templates", 
-      "Personal", 
+      ".obsidian",
+      "_userscripts",
+      "_templates",
+      "Personal",
       "Projekte",
       "Journal",
       "Firma",
-      "**/*excalidraw*"
+      "**/*excalidraw*",
     ],
     defaultDateType: "created",
     theme: {
@@ -64,10 +64,7 @@ const config: QuartzConfig = {
       Plugin.Description(),
       Plugin.LineBreaks(),
     ],
-    filters: [
-      Plugin.RemoveDrafts(),
-      Plugin.ExplicitPublish(),
-    ],
+    filters: [Plugin.RemoveDrafts(), Plugin.ExplicitPublish()],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources({ fontOrigin: "googleFonts" }),

@@ -32,7 +32,7 @@ const defaultOptions: GraphOptions = {
     linkDistance: 30,
     fontSize: 0.6,
     opacityScale: 1,
-    hideTags: ["excalidraw",]
+    hideTags: ["excalidraw"],
   },
   globalGraph: {
     drag: true,
@@ -44,7 +44,7 @@ const defaultOptions: GraphOptions = {
     linkDistance: 30,
     fontSize: 0.4,
     opacityScale: 5,
-    hideTags: ["excalidraw",]
+    hideTags: ["excalidraw"],
   },
 }
 

@@ -49,13 +49,13 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
 
   const links: LinkData[] = []
   const tags: SimpleSlug[] = []
-  
+
   for (const [src, details] of Object.entries<ContentDetails>(data)) {
     const source = simplifySlug(src as FullSlug)
     const outgoing = details.links ?? []
     const local_tags = details.tags
-        .filter((tag) => !hideTags.includes(tag))
-        .map((tag) => simplifySlug("tags/" + tag as FullSlug))
+      .filter((tag) => !hideTags.includes(tag))
+      .map((tag) => simplifySlug(("tags/" + tag) as FullSlug))
 
     tags.push(...local_tags.filter((tag) => !tags.includes(tag)))
 
@@ -64,7 +64,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
         links.push({ source, target: dest })
       }
     }
-    
+
     for (const tag of local_tags) {
       links.push({ source, target: tag })
     }
@@ -88,7 +88,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     }
   } else {
     Object.keys(data).forEach((id) => neighbourhood.add(simplifySlug(id as FullSlug)))
-    tags.forEach((tag) => neighbourhood.add(tag))  
+    tags.forEach((tag) => neighbourhood.add(tag))
   }
 
   const graphData: { nodes: NodeData[]; links: LinkData[] } = {

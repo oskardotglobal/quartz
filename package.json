@@ -2,7 +2,7 @@
   "name": "@jackyzha0/quartz",
   "description": "🌱 publish your digital garden and notes as a website",
   "private": true,
-  "version": "git+main",
+  "version": "4.0.12+custom",
   "type": "module",
   "author": "jackyzha0 <j.zhao2k19@gmail.com>",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "quartz"
   ],
   "bin": {
-    "quartz": "./quartz/bootstrap-cli.mjs"
+    "quartz": "quartz/bootstrap-cli.mjs"
   },
   "dependencies": {
     "@clack/prompts": "^0.6.3",
