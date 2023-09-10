@@ -1,15 +1,18 @@
-FROM node:18-alpine
+FROM oven/bun:latest
 
 # Create app directory
+RUN mkdir -p /app
 WORKDIR /app
 
+
 # Install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm ci
+COPY package.json /app
+COPY bun.lockb /app
+RUN bun i
 
 # Copy src
 COPY . .
 
 VOLUME ["/app/content"]
-ENTRYPOINT ["npx", "quartz", "build", "--serve"]
+EXPOSE 8080
+ENTRYPOINT ["bun", "quartz/bootstrap-cli.mjs", "build", "--serve"]
