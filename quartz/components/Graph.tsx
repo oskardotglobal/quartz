@@ -13,7 +13,8 @@ export interface D3Config {
   linkDistance: number
   fontSize: number
   opacityScale: number
-  hideTags: string[]
+  removeTags: string[]
+  showTags: boolean
 }
 
 interface GraphOptions {
@@ -32,19 +33,21 @@ const defaultOptions: GraphOptions = {
     linkDistance: 30,
     fontSize: 0.6,
     opacityScale: 1,
-    hideTags: ["excalidraw"],
+    showTags: true,
+    removeTags: [],
   },
   globalGraph: {
     drag: true,
     zoom: true,
     depth: -1,
-    scale: 1,
-    repelForce: 0.8,
-    centerForce: 0.35,
+    scale: 0.9,
+    repelForce: 0.5,
+    centerForce: 0.3,
     linkDistance: 30,
-    fontSize: 0.4,
-    opacityScale: 5,
-    hideTags: ["excalidraw"],
+    fontSize: 0.6,
+    opacityScale: 1,
+    showTags: true,
+    removeTags: [],
   },
 }
 

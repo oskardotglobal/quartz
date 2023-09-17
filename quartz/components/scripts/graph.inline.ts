@@ -42,7 +42,8 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     linkDistance,
     fontSize,
     opacityScale,
-    hideTags,
+    removeTags,
+    showTags,
   } = JSON.parse(graph.dataset["cfg"]!)
 
   const data = await fetchData
@@ -51,15 +52,10 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
   const tags: SimpleSlug[] = []
 
   const validLinks = new Set(Object.keys(data).map((slug) => simplifySlug(slug as FullSlug)))
-  
+
   for (const [src, details] of Object.entries<ContentDetails>(data)) {
     const source = simplifySlug(src as FullSlug)
     const outgoing = details.links ?? []
-    const local_tags = details.tags
-      .filter((tag) => !hideTags.includes(tag))
-      .map((tag) => simplifySlug(("tags/" + tag) as FullSlug))
-
-    tags.push(...local_tags.filter((tag) => !tags.includes(tag)))
 
     for (const dest of outgoing) {
       if (validLinks.has(dest)) {
@@ -67,8 +63,16 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
       }
     }
 
-    for (const tag of local_tags) {
-      links.push({ source, target: tag })
+    if (showTags) {
+      const localTags = details.tags
+        .filter((tag) => !removeTags.includes(tag))
+        .map((tag) => simplifySlug(("tags/" + tag) as FullSlug))
+
+      tags.push(...localTags.filter((tag) => !tags.includes(tag)))
+
+      for (const tag of localTags) {
+        links.push({ source, target: tag })
+      }
     }
   }
 
@@ -90,7 +94,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     }
   } else {
     Object.keys(data).forEach((id) => neighbourhood.add(simplifySlug(id as FullSlug)))
-    tags.forEach((tag) => neighbourhood.add(tag))
+    if (showTags) tags.forEach((tag) => neighbourhood.add(tag))
   }
 
   const graphData: { nodes: NodeData[]; links: LinkData[] } = {
@@ -145,7 +149,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     const isCurrent = d.id === slug
     if (isCurrent) {
       return "var(--secondary)"
-    } else if (d.id.startsWith("tags/")) {
+    } else if (visited.has(d.id) || d.id.startsWith("tags/")) {
       return "var(--tertiary)"
     } else {
       return "var(--gray)"
