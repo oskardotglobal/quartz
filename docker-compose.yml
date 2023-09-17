@@ -1,10 +1,44 @@
 version: "3"
 
+volumes:
+  data:
+  content:
+
+networks:
+  traefik:
+    external: true
+
 services:
-  app:
-    container_name: quartz
+  web:
     build: .
+    container_name: quartz
+    restart: unless-stopped
+    environment:
+      - UID=1000
+      - GID=1000
     volumes:
-      - "./Pandora's Box:/app/content"
+      - content:/app/content
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.quartz.rule=Host(`oskar.global`) || Host(`www.oskar.global`)"
+      - "traefik.http.routers.quartz.entrypoints=websecure"
+      - "traefik.http.routers.quartz.tls.certResolver=cloudflare"
+      - "traefik.http.routers.quartz.service=quartz"
+      - "traefik.http.services.quartz.loadbalancer.server.port=8080"
+
+  sync:
+    image: syncthing/syncthing
+    container_name: syncthing
+    restart: unless-stopped
+    hostname: helios
+    environment:
+      - UID=1000
+      - GID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - data:/var/syncthing
+      - content:/var/syncthing/content
     ports:
-      - 8080:8080
+      - 8384:8384
