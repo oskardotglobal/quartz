@@ -18,6 +18,7 @@ services:
       - GID=1000
     volumes:
       - content:/app/content
+      - ./Caddyfile:/etc/caddy/Caddyfile
     networks:
       - traefik
     labels:

@@ -1,18 +1,24 @@
-FROM oven/bun:latest
+FROM caddy AS caddy
 
-# Create app directory
-RUN mkdir -p /app
+
+FROM node:20-slim as builder
+
 WORKDIR /app
+COPY package.json .
+COPY package-lock.json* .
+RUN npm ci
 
 
-# Install app dependencies
-COPY package.json /app
-COPY bun.lockb /app
-RUN bun i --frozen-lockfile
+FROM node:20-slim
+WORKDIR /app
+COPY --from=builder /app /app
+COPY . . 
 
-# Copy src
-COPY . .
+COPY --from=caddy /usr/bin/caddy /usr/bin
 
 VOLUME ["/app/content"]
 EXPOSE 8080
-ENTRYPOINT ["bun", "quartz/bootstrap-cli.mjs", "build", "--serve"]
+
+# In this form the command is executed by the shell
+# See: https://docs.docker.com/engine/reference/builder/#cmd
+CMD npx quartz build && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
