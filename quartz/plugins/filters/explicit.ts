@@ -5,7 +5,6 @@ export const ExplicitPublish: QuartzFilterPlugin = () => ({
   shouldPublish(_ctx, [_tree, vfile]) {
     if (vfile.dirname?.split("/").at(1) !== "Blog") return true
 
-    const publishFlag: boolean = vfile.data?.frontmatter?.publish ?? false
-    return publishFlag
+    return vfile.data?.frontmatter?.publish ?? false
   },
 })
