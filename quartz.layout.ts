@@ -7,8 +7,7 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/oskardotglobal/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      Source: "https://github.com/oskardotglobal/quartz",
     },
   }),
 }
@@ -26,18 +25,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
-      filterFn: (node) => !(["Personal"].includes(node.name)),
-    })),
   ],
   right: [
-    Component.Graph({
-      globalGraph: {
-        removeTags: ["excalidraw"]
-      }
-    }),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
   ],
 }
 
@@ -49,7 +39,6 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
 }
