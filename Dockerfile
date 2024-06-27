@@ -1,6 +1,3 @@
-FROM caddy AS caddy
-
-
 FROM node:20-slim as builder
 
 WORKDIR /app
@@ -9,16 +6,15 @@ COPY package-lock.json* .
 RUN npm ci
 
 
-FROM node:20-slim
+FROM node:20-alpine
 WORKDIR /app
-COPY --from=builder /app /app
-COPY . . 
 
-COPY --from=caddy /usr/bin/caddy /usr/bin
+COPY --from=builder /app /app
+COPY . .
+
+COPY crontab /etc/crontabs/root
 
 VOLUME ["/app/content"]
 EXPOSE 8080
 
-# In this form the command is executed by the shell
-# See: https://docs.docker.com/engine/reference/builder/#cmd
-CMD npx quartz build && caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+CMD ["crond", "-f", "-d", "8"]

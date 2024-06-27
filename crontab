@@ -1,0 +1,3 @@
+# Run hourly quartz rebuilds
+0 * * * * cd /app && npx quartz build
+

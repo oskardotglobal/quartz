@@ -1,9 +1,0 @@
-:8080
-
-root * /app/public
-file_server
-try_files {path} {path}.html
-
-redir /krakow https://krakow.karl.my.id permanent
-redir /.well-known/matrix/server https://matrix.oskar.global/.well-known/matrix/server permanent
-redir /.well-known/matrix/client https://matrix.oskar.global/.well-known/matrix/client permanent
