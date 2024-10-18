@@ -11,7 +11,7 @@ const config: QuartzConfig = {
     pageTitle: "🪴 Oskar's Digital Garden",
     enableSPA: false,
     enablePopovers: false,
-    analytics: null,
+    analytics: { provider: "cabin" },
     baseUrl: "oskar.global",
     locale: "en-US",
     ignorePatterns: [
