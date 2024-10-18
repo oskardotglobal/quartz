@@ -9,6 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "🪴 Oskar's Digital Garden",
+    pageTitleSuffix: "",
     enableSPA: false,
     enablePopovers: false,
     analytics: { provider: "cabin" },
