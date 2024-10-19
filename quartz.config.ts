@@ -27,13 +27,8 @@ const config: QuartzConfig = {
     ],
     defaultDateType: "created",
     theme: {
-      fontOrigin: "local",
       cdnCaching: false,
-      typography: {
-        header: "Jetbrains Mono",
-        body: "Jetbrains Mono",
-        code: "Jetbrains Mono",
-      },
+      typography: {},
       colors: {
         lightMode: {
           light: "#edfdfb",

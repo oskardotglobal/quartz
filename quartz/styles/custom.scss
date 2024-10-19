@@ -1,6 +1,7 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 
+/*
 @font-face {
   font-family: "Jetbrains Mono";
   src: url("/static/JetBrainsMono-Regular.woff2") format("woff2");
@@ -24,45 +25,15 @@
   src: url("/static/JetBrainsMono-Italic.woff2") format("woff2");
   font-style: italic;
 }
-
-.page > #quartz-body > .left.sidebar {
-    display: none !important;
-}
+*/
 
 .page .page-header, .page > #quartz-body .right.sidebar {
     margin-top: 0;
 }
 
 body:not([data-slug="index"]) {
-    display: flex;
-    padding: 0 2em;
-
-    .page {
-        width: 100%;
-    }
-
-    .page, .center {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        height: 100%;
-    }
-
-    .page > #quartz-body > .left.sidebar {
-        width: 0 !important;
-    }
-
-    .page > #quartz-body .right.sidebar {
-        right: calc(60vw - $pageWidth + 5px);
-    }
-
-    @media all and (min-width: $fullPageWidth + $sidePanelWidth + 5px) {
-        padding: 0 20rem;
-    }
-
-    @media all and (max-width: $fullPageWidth + 4px) {
-        .page > #quartz-body .right.sidebar {
-            display: none;
-        }
+    .page > #quartz-body .right.sidebar > .spacer:nth-of-type(1) {
+        display: none;
     }
 }
 

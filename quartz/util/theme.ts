@@ -52,9 +52,9 @@ ${stylesheet.join("\n\n")}
   --highlight: ${theme.colors.lightMode.highlight};
   --textHighlight: ${theme.colors.lightMode.textHighlight};
 
-  --headerFont: "${theme.typography.header}", ${DEFAULT_SANS_SERIF};
-  --bodyFont: "${theme.typography.body}", ${DEFAULT_SANS_SERIF};
-  --codeFont: "${theme.typography.code}", ${DEFAULT_MONO};
+  --headerFont: ${DEFAULT_MONO};
+  --bodyFont: ${DEFAULT_MONO};
+  --codeFont: ${DEFAULT_MONO};
 }
 
 :root[saved-theme="dark"] {

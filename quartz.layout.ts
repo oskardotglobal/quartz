@@ -21,12 +21,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ContentMeta(),
     Component.TagList(),
   ],
+  afterBody: [],
   left: [],
-  right: [
-    Component.Spacer(),
-    Component.TableOfContents(),
-    Component.Spacer(),
-  ],
+  right: [],
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
