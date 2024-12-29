@@ -1,0 +1,3 @@
+[submodule "quartz/static/tiers"]
+	path = quartz/static/tiers
+	url = https://github.com/oskardotglobal/tiers
