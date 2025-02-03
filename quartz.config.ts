@@ -24,6 +24,7 @@ const config: QuartzConfig = {
       "Journal",
       "Firma",
       "**/*excalidraw*",
+      "Zitate.md",
     ],
     defaultDateType: "created",
     generateSocialImages: false,
