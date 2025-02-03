@@ -1,32 +1,6 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 
-/*
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("/static/JetBrainsMono-Regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("/static/JetBrainsMono-Bold.woff2") format("woff2");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("/static/JetBrainsMono-BoldItalic.woff2") format("woff2");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("/static/JetBrainsMono-Italic.woff2") format("woff2");
-  font-style: italic;
-}
-*/
-
 .page .page-header, .page > #quartz-body .right.sidebar {
     margin-top: 0;
 }

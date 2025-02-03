@@ -29,6 +29,7 @@ const config: QuartzConfig = {
     generateSocialImages: false,
     theme: {
       cdnCaching: false,
+      // @ts-ignore
       typography: {},
       colors: {
         lightMode: {
